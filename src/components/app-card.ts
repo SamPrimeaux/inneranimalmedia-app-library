@@ -5,7 +5,7 @@ import { escapeHtml, formatNumber, renderStars } from '../utils/html';
 
 export function renderAppCard(app: App, size: 'default' | 'featured' = 'default'): string {
   const cardClass = size === 'featured' ? 'app-card app-card-featured' : 'app-card';
-  
+
   return `
 <a href="/library/${escapeHtml(app.slug)}" class="${cardClass}">
   <div class="app-card-header">

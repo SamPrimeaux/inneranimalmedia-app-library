@@ -2,7 +2,7 @@
 
 export function renderHeader(currentPath: string = '/'): string {
   const isActive = (path: string) => currentPath === path || currentPath.startsWith(path + '/') ? 'active' : '';
-  
+
   return `
 <header class="site-header">
   <div class="header-container">
@@ -37,7 +37,7 @@ export function renderHeader(currentPath: string = '/'): string {
 
 export function renderFooter(): string {
   const currentYear = new Date().getFullYear();
-  
+
   return `
 <footer class="site-footer">
   <div class="footer-container">

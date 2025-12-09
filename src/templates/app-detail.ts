@@ -6,7 +6,7 @@ import { escapeHtml, formatNumber, formatDate, renderStars } from '../utils/html
 
 export function renderAppDetail(app: App, reviews: AppReview[]): string {
   const screenshots = app.screenshots ? JSON.parse(app.screenshots) : [];
-  
+
   const content = `
 ${getAppDetailStyles()}
 
@@ -81,10 +81,10 @@ ${screenshots.length > 0 ? `
         <div class="content-section">
           <h2 class="section-heading">About</h2>
           <div class="app-description">
-            ${app.long_description ? 
-              escapeHtml(app.long_description).split('\\n\\n').map(p => `<p>${p}</p>`).join('') : 
-              escapeHtml(app.description || 'No description available.')
-            }
+            ${app.long_description ?
+      escapeHtml(app.long_description).split('\\n\\n').map(p => `<p>${p}</p>`).join('') :
+      escapeHtml(app.description || 'No description available.')
+    }
           </div>
         </div>
         
@@ -122,10 +122,10 @@ ${screenshots.length > 0 ? `
             <div class="info-item">
               <div class="info-label">Developer</div>
               <div class="info-value">
-                ${app.developer_url ? 
-                  `<a href="${escapeHtml(app.developer_url)}" target="_blank" rel="noopener">${escapeHtml(app.developer)}</a>` :
-                  escapeHtml(app.developer)
-                }
+                ${app.developer_url ?
+      `<a href="${escapeHtml(app.developer_url)}" target="_blank" rel="noopener">${escapeHtml(app.developer)}</a>` :
+      escapeHtml(app.developer)
+    }
               </div>
             </div>
             <div class="info-item">

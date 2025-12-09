@@ -71,7 +71,7 @@ export default {
       // App detail page
       if (pathname.startsWith('/library/')) {
         const slug = pathname.replace('/library/', '');
-        
+
         if (!slug) {
           return Response.redirect(url.origin + '/library', 302);
         }
