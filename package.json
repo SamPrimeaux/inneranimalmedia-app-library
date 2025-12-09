@@ -1,0 +1,34 @@
+{
+  "name": "inneranimalmedia-app-library",
+  "version": "1.0.0",
+  "description": "iOS-quality app library platform for InnerAnimalMedia.com",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:dev": "wrangler deploy --env dev",
+    "deploy:production": "wrangler deploy --env production",
+    "db:create": "wrangler d1 create inneranimalmedia_app_library",
+    "db:init": "wrangler d1 execute inneranimalmedia_app_library --file=./schema.sql --env production",
+    "db:init:dev": "wrangler d1 execute inneranimalmedia_app_library_dev --file=./schema.sql --env dev",
+    "db:seed": "wrangler d1 execute inneranimalmedia_app_library --file=./seed.sql --env production",
+    "r2:create": "wrangler r2 bucket create inneranimalmedia-assets",
+    "cf:tail": "wrangler tail",
+    "test": "echo \"Tests coming soon\""
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "app-library",
+    "ios",
+    "d1",
+    "r2"
+  ],
+  "author": "Sam Primeaux <sam@inneranimalmedia.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241127.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.94.0"
+  }
+}

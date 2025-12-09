@@ -1,0 +1,56 @@
+name = "inneranimalmedia-app-library"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Production Environment
+[env.production]
+name = "inneranimalmedia-production"
+account_id = "ede6590ac0d2fb7daf155b35653457b2"
+zone_id = "0bab48636c1bea4be4ea61c0c7787c3e"
+# route = "inneranimalmedia.com/*"  # Will be set up via dashboard
+workers_dev = true
+
+[env.production.vars]
+ENVIRONMENT = "production"
+
+# D1 Database - Production
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "inneranimalmedia_app_library"
+database_id = "ff10ed0d-fb18-4f94-8e8a-2d8eb2053bef"
+
+# R2 Bucket - Production
+[[env.production.r2_buckets]]
+binding = "ASSETS"
+bucket_name = "inneranimalmedia-assets"
+
+# KV Namespace - Production
+[[env.production.kv_namespaces]]
+binding = "CACHE"
+id = "38d3dbd415f148008aec823bd1b245bb"
+
+# Development Environment
+[env.dev]
+name = "inneranimalmedia-dev"
+account_id = "ede6590ac0d2fb7daf155b35653457b2"
+workers_dev = true
+
+[env.dev.vars]
+ENVIRONMENT = "development"
+
+# D1 Database - Dev
+[[env.dev.d1_databases]]
+binding = "DB"
+database_name = "inneranimalmedia_app_library_dev"
+database_id = "TBD"  # Update after creating
+
+# R2 Bucket - Dev
+[[env.dev.r2_buckets]]
+binding = "ASSETS"
+bucket_name = "inneranimalmedia-assets-dev"
+
+# KV Namespace - Dev
+[[env.dev.kv_namespaces]]
+binding = "CACHE"
+id = "TBD"  # Update after creating
