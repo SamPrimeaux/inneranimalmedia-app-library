@@ -1,27 +1,27 @@
-// Layout components - Header, Footer, Base HTML
+// Layout components for Vision Board
 
 export function renderHeader(currentPath: string = '/'): string {
-  const isActive = (path: string) => currentPath === path || currentPath.startsWith(path + '/') ? 'active' : '';
-
   return `
 <header class="site-header">
   <div class="header-container">
     <a href="/" class="logo">
-      <div class="logo-icon">??</div>
-      <span class="logo-text">InnerAnimal<span class="logo-accent">Media</span></span>
+      <div class="logo-icon">✨</div>
+      <span class="logo-text">Vision<span class="logo-accent">Board</span></span>
     </a>
     
     <nav class="nav-menu">
-      <a href="/" class="nav-link ${isActive('/')}">Home</a>
-      <a href="/library" class="nav-link ${isActive('/library')}">Library</a>
-      <a href="/dashboard" class="nav-link ${isActive('/dashboard')}">Dashboard</a>
+      <a href="/" class="nav-link ${currentPath === '/' ? 'active' : ''}">Board</a>
+      <a href="/ceo" class="nav-link ${currentPath === '/ceo' ? 'active' : ''}">CEO Dashboard</a>
+      <a href="/visionlab" class="nav-link ${currentPath === '/visionlab' ? 'active' : ''}">Vision Lab</a>
+      <a href="/thoughts" class="nav-link ${currentPath === '/thoughts' ? 'active' : ''}">Thoughts</a>
     </nav>
     
     <div class="header-actions">
-      <button class="icon-btn" id="search-btn" title="Search">
+      <button class="icon-btn" id="notifications-btn" title="Notifications">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M10 2a6 6 0 0 0-6 6v3.586l-.707.707A1 1 0 0 0 4 14h12a1 1 0 0 0 .707-1.707L16 11.586V8a6 6 0 0 0-6-6zM10 18a3 3 0 0 1-3-3h6a3 3 0 0 1-3 3z" stroke="currentColor" stroke-width="1.5" fill="none"/>
         </svg>
+        <span class="notification-badge" id="notification-count" style="display: none;">0</span>
       </button>
       <button class="icon-btn" id="theme-toggle" title="Toggle theme">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -37,70 +37,30 @@ export function renderHeader(currentPath: string = '/'): string {
 
 export function renderFooter(): string {
   const currentYear = new Date().getFullYear();
-
   return `
 <footer class="site-footer">
   <div class="footer-container">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>InnerAnimal Media</h4>
-        <p class="footer-desc">Building the future of enterprise applications with cutting-edge technology.</p>
-      </div>
-      
-      <div class="footer-col">
-        <h5>Platform</h5>
-        <ul class="footer-links">
-          <li><a href="/library">App Library</a></li>
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="https://api.inneranimalmedia.com">API</a></li>
-          <li><a href="https://mcp.inneranimalmedia.com">MCP Server</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-col">
-        <h5>Resources</h5>
-        <ul class="footer-links">
-          <li><a href="/docs">Documentation</a></li>
-          <li><a href="/support">Support</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="https://github.com/SamPrimeaux/inneranimalmedia-app-library">GitHub</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-col">
-        <h5>Connect</h5>
-        <ul class="footer-links">
-          <li><a href="mailto:sam@inneranimalmedia.com">Contact</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/privacy">Privacy</a></li>
-          <li><a href="/terms">Terms</a></li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="footer-bottom">
-      <p>&copy; ${currentYear} InnerAnimal Media. All rights reserved.</p>
-      <div class="footer-badges">
-        <span class="badge">Powered by Cloudflare</span>
-        <span class="badge">D1 + R2 + Workers</span>
-      </div>
+    <p>&copy; ${currentYear} Vision Board. Built with Cloudflare Workers, D1, and ❤️</p>
+    <div class="footer-badges">
+      <span class="badge">Cloudflare Powered</span>
+      <span class="badge">Real-time Sync</span>
     </div>
   </div>
 </footer>
 `;
 }
 
-export function renderBaseHTML(title: string, content: string, styles: string = ''): string {
+export function renderBaseHTML(title: string, content: string, styles: string = '', scripts: string = ''): string {
   return `<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="InnerAnimal Media - iOS-quality app library for enterprise applications">
-  <title>${title} | InnerAnimal Media</title>
+  <meta name="description" content="Vision Board - Align your goals, plans, tasks, and reminders">
+  <title>${title} | Vision Board</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>${getGlobalStyles()}${styles}</style>
 </head>
 <body>
@@ -109,7 +69,7 @@ export function renderBaseHTML(title: string, content: string, styles: string = 
     ${content}
   </main>
   ${renderFooter()}
-  <script>${getGlobalScripts()}</script>
+  <script>${getGlobalScripts()}${scripts}</script>
 </body>
 </html>`;
 }
@@ -118,28 +78,36 @@ function getGlobalStyles(): string {
   return `
 /* ===== CSS VARIABLES ===== */
 :root {
-  /* Colors - Dark Base */
-  --bg-primary: #0a0e12;
-  --bg-secondary: #1a2026;
-  --bg-tertiary: #252d35;
-  --bg-card: rgba(26, 32, 38, 0.8);
-  --bg-glass: rgba(26, 32, 38, 0.7);
+  /* Colors - AutoMeaux Dark Theme */
+  --bg-primary: #0a0e1a;
+  --bg-secondary: #060911;
+  --bg-tertiary: #12192b;
+  --bg-card: rgba(20, 28, 46, 0.95);
+  --bg-glass: rgba(30, 40, 64, 0.8);
+  --bg-hover: rgba(40, 50, 80, 0.6);
   
-  /* Teal/Cyan Accent */
-  --accent-primary: #60DFDF;
-  --accent-secondary: #4ECDC4;
-  --accent-dark: #3BA8A8;
-  --accent-glow: rgba(96, 223, 223, 0.15);
-  --accent-glow-strong: rgba(96, 223, 223, 0.25);
+  /* Gradient Accents */
+  --accent-primary: #3dd9d0;
+  --accent-secondary: #7de3cb;
+  --accent-tertiary: #60a5fa;
+  --accent-gradient: linear-gradient(135deg, #3dd9d0 0%, #7de3cb 45%, #60a5fa 100%);
+  --accent-glow: rgba(61, 217, 208, 0.25);
+  --accent-glow-strong: rgba(61, 217, 208, 0.4);
+  
+  /* Status Colors */
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #ef4444;
+  --info: #60a5fa;
   
   /* Text */
-  --text-primary: rgba(255, 255, 255, 0.95);
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --text-tertiary: rgba(255, 255, 255, 0.45);
+  --text-primary: #e8eef7;
+  --text-secondary: #a0aec0;
+  --text-tertiary: #6b7280;
   
   /* Borders */
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glass: rgba(96, 223, 223, 0.2);
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-glass: rgba(61, 217, 208, 0.3);
   
   /* Spacing */
   --space-xs: 4px;
@@ -154,32 +122,34 @@ function getGlobalStyles(): string {
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --radius-xl: 20px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
   
   /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.15);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.2);
-  --shadow-glow: 0 0 20px var(--accent-glow);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 0 30px var(--accent-glow);
+  --shadow-glow-strong: 0 0 50px var(--accent-glow-strong);
   
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="light"] {
   --bg-primary: #ffffff;
-  --bg-secondary: #f5f7fa;
-  --bg-tertiary: #e5e9f0;
-  --bg-card: rgba(255, 255, 255, 0.9);
-  --bg-glass: rgba(255, 255, 255, 0.8);
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.6);
+  --bg-hover: rgba(0, 0, 0, 0.05);
   --text-primary: rgba(0, 0, 0, 0.9);
   --text-secondary: rgba(0, 0, 0, 0.7);
   --text-tertiary: rgba(0, 0, 0, 0.5);
   --border-subtle: rgba(0, 0, 0, 0.1);
-  --border-glass: rgba(96, 223, 223, 0.3);
+  --border-glass: rgba(99, 102, 241, 0.2);
 }
 
 /* ===== BASE STYLES ===== */
@@ -196,7 +166,7 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background-color: var(--bg-primary);
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
@@ -224,15 +194,15 @@ button {
   left: 0;
   right: 0;
   height: 70px;
-  background: rgba(10, 14, 18, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(10, 14, 26, 0.9);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border-subtle);
   z-index: 1000;
 }
 
 .header-container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 var(--space-xl);
   height: 100%;
@@ -246,8 +216,9 @@ button {
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 22px;
+  font-weight: 800;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   transition: opacity var(--transition-base);
 }
 
@@ -258,10 +229,17 @@ button {
 .logo-icon {
   font-size: 28px;
   line-height: 1;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .logo-accent {
-  color: var(--accent-primary);
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .nav-menu {
@@ -272,20 +250,32 @@ button {
 
 .nav-link {
   padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   color: var(--text-secondary);
   font-weight: 500;
   transition: all var(--transition-base);
+  position: relative;
 }
 
 .nav-link:hover {
   color: var(--text-primary);
-  background: var(--bg-tertiary);
+  background: var(--bg-hover);
 }
 
 .nav-link.active {
   color: var(--accent-primary);
   background: var(--accent-glow);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: var(--space-md);
+  right: var(--space-md);
+  height: 2px;
+  background: var(--accent-gradient);
+  border-radius: var(--radius-full);
 }
 
 .header-actions {
@@ -300,86 +290,59 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   color: var(--text-secondary);
   transition: all var(--transition-base);
+  position: relative;
 }
 
 .icon-btn:hover {
   color: var(--text-primary);
-  background: var(--bg-tertiary);
+  background: var(--bg-hover);
+}
+
+.notification-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: var(--error);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  min-width: 18px;
+  text-align: center;
 }
 
 /* ===== MAIN CONTENT ===== */
 .site-main {
   flex: 1;
   margin-top: 70px;
+  padding: var(--space-2xl) var(--space-xl);
+  max-width: 1600px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ===== FOOTER ===== */
 .site-footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-subtle);
-  padding: var(--space-3xl) 0 var(--space-xl);
+  padding: var(--space-xl) 0;
   margin-top: var(--space-3xl);
 }
 
 .footer-container {
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 var(--space-xl);
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr repeat(3, 1fr);
-  gap: var(--space-2xl);
-  margin-bottom: var(--space-2xl);
-}
-
-.footer-col h4 {
-  font-size: 18px;
-  margin-bottom: var(--space-md);
-}
-
-.footer-col h5 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: var(--space-md);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.footer-desc {
-  color: var(--text-secondary);
-  line-height: 1.7;
-}
-
-.footer-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-}
-
-.footer-links a {
-  color: var(--text-secondary);
-  transition: color var(--transition-base);
-}
-
-.footer-links a:hover {
-  color: var(--accent-primary);
-}
-
-.footer-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--border-subtle);
-  color: var(--text-tertiary);
-  font-size: 14px;
+  flex-wrap: wrap;
+  gap: var(--space-md);
 }
 
 .footer-badges {
@@ -393,6 +356,7 @@ button {
   border-radius: var(--radius-full);
   font-size: 12px;
   font-weight: 500;
+  color: var(--text-secondary);
 }
 
 /* ===== RESPONSIVE ===== */
@@ -402,17 +366,20 @@ button {
   }
   
   .nav-menu {
-    display: none;
+    gap: var(--space-xs);
   }
   
-  .footer-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-xl);
+  .nav-link {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 14px;
   }
   
-  .footer-bottom {
+  .site-main {
+    padding: var(--space-lg) var(--space-md);
+  }
+  
+  .footer-container {
     flex-direction: column;
-    gap: var(--space-md);
     text-align: center;
   }
 }
@@ -425,7 +392,6 @@ function getGlobalScripts(): string {
 const themeToggle = document.getElementById('theme-toggle');
 const html = document.documentElement;
 
-// Load saved theme
 const savedTheme = localStorage.getItem('theme') || 'dark';
 html.setAttribute('data-theme', savedTheme);
 
@@ -436,10 +402,31 @@ themeToggle?.addEventListener('click', () => {
   localStorage.setItem('theme', newTheme);
 });
 
-// Search button
-const searchBtn = document.getElementById('search-btn');
-searchBtn?.addEventListener('click', () => {
-  window.location.href = '/library?focus=search';
+// Notifications
+const notificationsBtn = document.getElementById('notifications-btn');
+notificationsBtn?.addEventListener('click', () => {
+  // TODO: Show notifications panel
+  console.log('Notifications clicked');
 });
+
+// Auto-refresh reminders count
+async function updateNotificationCount() {
+  try {
+    const response = await fetch('/api/reminders?upcoming=true');
+    const reminders = await response.json();
+    const count = reminders.filter(r => !r.is_completed).length;
+    const badge = document.getElementById('notification-count');
+    if (badge) {
+      badge.textContent = count;
+      badge.style.display = count > 0 ? 'block' : 'none';
+    }
+  } catch (error) {
+    console.error('Failed to update notification count:', error);
+  }
+}
+
+// Update every 30 seconds
+setInterval(updateNotificationCount, 30000);
+updateNotificationCount();
 `;
 }
