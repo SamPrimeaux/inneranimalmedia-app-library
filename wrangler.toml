@@ -16,6 +16,11 @@ binding = 'ASSETS'
 binding = 'R2_STORAGE'
 bucket_name = 'gclouddashboard'
 
+[[d1_databases]]
+binding = 'MEAUXOS_DB'
+database_name = 'meauxos'
+database_id = 'd8261777-9384-44f7-924d-c92247d55b46'
+
 [[routes]]
 pattern = 'gcloudv1.meauxbility.workers.dev/*'
 custom_domain = false
