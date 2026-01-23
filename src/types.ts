@@ -3,8 +3,16 @@
 export interface Env {
   DB: D1Database;
   ASSETS: R2Bucket;
-  CACHE: KVNamespace;
+  CAD_ASSETS: R2Bucket;
+  HYPERDRIVE: Hyperdrive;
+  IAM_SESSION: DurableObjectNamespace;
+  MEAUX_SESSION: DurableObjectNamespace;
+  CACHE?: KVNamespace; // Optional
   ENVIRONMENT: string;
+  CLOUDFLARE_API_TOKEN?: string; // For API calls
+  CLOUDFLARE_ACCOUNT_ID?: string;
+  CLOUDFLARE_IMAGES_ACCOUNT_HASH?: string;
+  REALTIME_SFU_APP_ID?: string;
 }
 
 export interface App {

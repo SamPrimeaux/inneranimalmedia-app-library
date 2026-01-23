@@ -1,34 +1,55 @@
-name = "inneranimalmedia-app-library"
+name = "inneranimalmediamain"
 main = "src/index.ts"
-compatibility_date = "2024-12-01"
+compatibility_date = "2025-11-17"
 compatibility_flags = ["nodejs_compat"]
 
 # Production Environment
 [env.production]
-name = "inneranimalmedia-production"
+name = "inneranimalmediamain"
 account_id = "ede6590ac0d2fb7daf155b35653457b2"
-zone_id = "0bab48636c1bea4be4ea61c0c7787c3e"
-# route = "inneranimalmedia.com/*"  # Will be set up via dashboard
 workers_dev = true
+
+# Note: Custom domain routes configured via Cloudflare Dashboard:
+# - inneranimalmedia.com/*
+# - www.inneranimalmedia.com/*
+# Worker accessible at: inneranimalmediamain.meauxbility.workers.dev
 
 [env.production.vars]
 ENVIRONMENT = "production"
+CLOUDFLARE_ACCOUNT_ID = "ede6590ac0d2fb7daf155b35653457b2"
+CLOUDFLARE_IMAGES_ACCOUNT_HASH = "g7wf09fCONpnidkRnR_5vw"
+REALTIME_SFU_APP_ID = "a5f1a5ac6f6e9d8e93b5aa4493448d64"
 
-# D1 Database - Production
+# D1 Database - Production (inneranimalmedia-business)
 [[env.production.d1_databases]]
 binding = "DB"
-database_name = "inneranimalmedia_app_library"
-database_id = "ff10ed0d-fb18-4f94-8e8a-2d8eb2053bef"
+database_name = "inneranimalmedia-business"
+database_id = "cf87b717-d4e2-4cf8-bab0-a81268e32d49"
 
-# R2 Bucket - Production
+# R2 Buckets - Production
 [[env.production.r2_buckets]]
 binding = "ASSETS"
 bucket_name = "inneranimalmedia-assets"
 
-# KV Namespace - Production
-[[env.production.kv_namespaces]]
-binding = "CACHE"
-id = "38d3dbd415f148008aec823bd1b245bb"
+[[env.production.r2_buckets]]
+binding = "CAD_ASSETS"
+bucket_name = "splineicons"
+
+# Hyperdrive - Production
+[[env.production.hyperdrive]]
+binding = "HYPERDRIVE"
+id = "9108dd6499bb44c286e4eb298c6ffafb"
+
+# Durable Objects - Production
+[[env.production.durable_objects.bindings]]
+name = "IAM_SESSION"
+class_name = "IAMSession"
+script_name = "inneranimalmediamain"
+
+[[env.production.durable_objects.bindings]]
+name = "MEAUX_SESSION"
+class_name = "MeauxSession"
+script_name = "inneranimalmediamain"
 
 # Development Environment
 [env.dev]
@@ -38,19 +59,20 @@ workers_dev = true
 
 [env.dev.vars]
 ENVIRONMENT = "development"
+CLOUDFLARE_ACCOUNT_ID = "ede6590ac0d2fb7daf155b35653457b2"
 
-# D1 Database - Dev
+# D1 Database - Dev (using main business database)
 [[env.dev.d1_databases]]
 binding = "DB"
-database_name = "inneranimalmedia_app_library_dev"
-database_id = "TBD"  # Update after creating
+database_name = "inneranimalmedia-business"
+database_id = "cf87b717-d4e2-4cf8-bab0-a81268e32d49"
 
-# R2 Bucket - Dev
+# R2 Bucket - Dev (using production bucket for now)
 [[env.dev.r2_buckets]]
 binding = "ASSETS"
-bucket_name = "inneranimalmedia-assets-dev"
+bucket_name = "inneranimalmedia-assets"
 
-# KV Namespace - Dev
-[[env.dev.kv_namespaces]]
-binding = "CACHE"
-id = "TBD"  # Update after creating
+# KV Namespace - Dev (commented out - requires write permissions)
+# [[env.dev.kv_namespaces]]
+# binding = "CACHE"
+# id = "38d3dbd415f148008aec823bd1b245bb"
