@@ -17,7 +17,7 @@ ${getHomepageStyles()}
         <span class="gradient-text">Ecosystem</span>
       </h1>
       <p class="hero-subtitle">
-        Enterprise tools, creative apps, and intelligence—all in one beautifully crafted platform.
+        Enterprise tools, creative apps, and intelligenceï¿½all in one beautifully crafted platform.
         Built on Cloudflare's edge for lightning-fast performance.
       </p>
       <div class="hero-cta">

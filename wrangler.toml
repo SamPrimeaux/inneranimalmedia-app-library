@@ -2,6 +2,7 @@ name = "inneranimalmediamain"
 main = "src/index.ts"
 compatibility_date = "2025-11-17"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
 # Production Environment
 [env.production]
@@ -76,3 +77,15 @@ bucket_name = "inneranimalmedia-assets"
 # [[env.dev.kv_namespaces]]
 # binding = "CACHE"
 # id = "38d3dbd415f148008aec823bd1b245bb"
+
+# Observability (from remote merge)
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = true
+head_sampling_rate = 1
+persist = false

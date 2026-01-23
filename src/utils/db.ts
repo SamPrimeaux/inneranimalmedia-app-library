@@ -3,7 +3,7 @@
 import type { Env, App, Category, AppReview, LibraryQuery } from '../types';
 
 export class AppLibraryDB {
-  constructor(private db: D1Database) {}
+  constructor(private db: D1Database) { }
 
   /**
    * Get all categories
@@ -70,7 +70,7 @@ export class AppLibraryDB {
       .prepare(sql.replace('SELECT *', 'SELECT COUNT(*) as count'))
       .bind(...params)
       .first<{ count: number }>();
-    
+
     const total = countResult?.count || 0;
 
     // Pagination
